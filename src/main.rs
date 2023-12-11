@@ -1,6 +1,7 @@
 use std::path::Path;
 
 use clap::{command, Arg, Command};
+use ju_tcs_rust_23_15::{head::*, tail::*};
 
 fn main() {
     let matches = command!() // requires `cargo` feature
@@ -13,12 +14,16 @@ fn main() {
             "head" => {
                 let path = Path::new(args.get_one::<String>("path").unwrap());
                 let n = args.get_one::<String>("n").unwrap().parse::<usize>().unwrap();
-                println!("{:?}, {n}", path);
+                for i in head(path, n) {
+                    println!("{i}");
+                }
             }
             "tail" => {
                 let path = Path::new(args.get_one::<String>("path").unwrap());
                 let n = args.get_one::<String>("n").unwrap().parse::<usize>().unwrap();
-                println!("{:?}, {n}", path);
+                for i in tail(path, n) {
+                    println!("{i}");
+                }
             }
             _ => panic!(),
         },
